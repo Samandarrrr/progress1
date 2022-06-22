@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en,ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </nav>
-<div class="forme" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
     Name: <input type="text" name="name">
     <span class="error">* <?php echo $nameErr;?></span>
@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <br><br>
     <input type="submit" name="submit" value="Submit">
 
-</div>
+</form>
 
 </body>
 </html>
