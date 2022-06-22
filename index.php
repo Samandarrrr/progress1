@@ -61,6 +61,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $gender = test_input($_POST["gender"]);
     }
 }
+
+$website = test_input($_POST["website"]);
+if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
+    $websiteErr = "Invalid URL";
+}
 ?>
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -99,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </nav>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
     Name: <input type="text" name="name">
     <span class="error">* <?php echo $nameErr;?></span>
