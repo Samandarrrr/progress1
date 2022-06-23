@@ -1,0 +1,14 @@
+.LogIn {
+    width: 320px;
+    height: 340px;
+    background: cornflowerblue;
+    display: block;
+    padding-left: 40px;
+    border-radius: 8px;
+    color: rgb(47, 130, 47);
+    margin-left: 20px;
+}
+.body{
+width: 100%;
+}
+

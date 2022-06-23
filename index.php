@@ -6,23 +6,23 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
+    <link rel="stylesheet" href="./index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </head>
 <body>
 <?php
 
-$nameErr = $emailErr = $genderErr = $websiteErr = "";
-$name = $email = $gender = $comment = $website = "";
-$data = "The time is " . date("h:i:sa");
+$nameErr = $emailErr =  $websiteErr = "";
+$name = $email = $website = "";
+$target_dir=$target_file =$uploadOk=$imageFileType="";
+$check=$tmp_name="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = test_input($_POST["name"]);
     $email = test_input($_POST["email"]);
     $website = test_input($_POST["website"]);
-    $comment = test_input($_POST["comment"]);
-    $gender = test_input($_POST["gender"]);
+
 }
 
 function test_input($data) {
@@ -45,31 +45,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["website"])) {
-        $website = "";
+        $websiteErr = "Invalid site";
     } else {
         $website = test_input($_POST["website"]);
     }
 
-    if (empty($_POST["comment"])) {
-        $comment = "";
-    } else {
-        $comment = test_input($_POST["comment"]);
-    }
 
-    if (empty($_POST["gender"])) {
-        $genderErr = "Gender is required";
-    } else {
-        $gender = test_input($_POST["gender"]);
-    }
-    $data = $_POST["date"];
+
+
+
 }
 
-$website = test_input($_POST["website"]);
-if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
-    $websiteErr = "Invalid URL";
-};
+
+
+
 date_default_timezone_set("Uzbekistan/Tashkent");
 
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["q"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+        echo "save" . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
 ?>
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -108,32 +113,26 @@ date_default_timezone_set("Uzbekistan/Tashkent");
         </div>
     </div>
 </nav>
-<form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
+<form  class="LogIn" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
-    Name: <input type="text" name="name">
+    <input  placeholder="Full-Name" type="text" name="name">
     <span class="error">* <?php echo $nameErr;?></span>
     <br><br>
-    E-mail:
-    <input type="text" name="email">
+    <input placeholder="E-mail" type="text" name="email">
     <span class="error">* <?php echo $emailErr;?></span>
     <br><br>
-    Website:
-    <input type="text" name="website">
-    <span class="error"><?php echo $websiteErr;?></span>
-    <br><br>
-    Comment: <textarea name="comment" rows="5" cols="40"></textarea>
-    <br><br>
-    Gender:
-    <input type="radio" name="gender" value="female">Female
-    <input type="radio" name="gender" value="male">Male
-    <input type="radio" name="gender" value="other">Other
-    <span class="error">* <?php echo $genderErr;?></span>
+    <input placeholder="website" type="text" name="Website">
+    <span class="error">*<?php echo $websiteErr;?></span>
     <br><br>
     <input type="submit" name="submit" value="Submit">
 
-</form>
-<span> <?php $data ?></span>
 
+</form>
+<form action="index.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
+</form>
 
 </body>
 </html>
