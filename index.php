@@ -15,6 +15,7 @@
 
 $nameErr = $emailErr = $genderErr = $websiteErr = "";
 $name = $email = $gender = $comment = $website = "";
+$data = "The time is " . date("h:i:sa");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = test_input($_POST["name"]);
@@ -60,12 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $gender = test_input($_POST["gender"]);
     }
+    $data = $_POST["date"];
 }
 
 $website = test_input($_POST["website"]);
 if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
     $websiteErr = "Invalid URL";
-}
+};
+date_default_timezone_set("Uzbekistan/Tashkent");
+
 ?>
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -128,6 +132,8 @@ if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-
     <input type="submit" name="submit" value="Submit">
 
 </form>
+<span> <?php $data ?></span>
+
 
 </body>
 </html>
