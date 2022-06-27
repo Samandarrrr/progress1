@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-date_default_timezone_set("Uzbekistan/Tashkent");
+
 
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["q"]["name"]);
@@ -75,6 +75,54 @@ if(isset($_POST["submit"])) {
         $uploadOk = 0;
     }
 }
+
+class  Fruit
+{
+    public $name;
+    public $color;
+
+    function set_name($name) {
+        $this->name = $name;
+    }
+    function get_name() {
+        return $this->name;
+    }
+    function set_color($color){
+        return $this->color =$color;
+    }
+    function get_color(){
+        return $this->color;
+    }
+
+
+}
+    $apple = new Fruit();
+    $color= new Fruit();
+    $apple->set_name('Apple');
+    $color->set_color('red');
+
+    echo "Name:" .$apple->get_name();
+    echo "<br>";
+    echo "color:" .$color->get_color();
+
+
+    Class Students
+    {
+        public $age;
+        public $level;
+
+        function __construct($age)
+        {
+            $this->age = $age;
+        }
+
+        function __destruct()
+        {
+            echo "the student is {$this->age}";
+        }
+    }
+    $student = new Students("Samandar");
+
 ?>
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -115,16 +163,16 @@ if(isset($_POST["submit"])) {
 </nav>
 <form  class="LogIn" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
-    <input  placeholder="Full-Name" type="text" name="name">
+    <input class="inpt" placeholder="       Full-Name" type="text" name="name">
     <span class="error">* <?php echo $nameErr;?></span>
     <br><br>
-    <input placeholder="E-mail" type="text" name="email">
+    <input class="inpt"  placeholder="      E-mail" type="text" name="email">
     <span class="error">* <?php echo $emailErr;?></span>
     <br><br>
-    <input placeholder="website" type="text" name="Website">
+    <input class="inpt"  placeholder="      website" type="text" name="Website">
     <span class="error">*<?php echo $websiteErr;?></span>
     <br><br>
-    <input type="submit" name="submit" value="Submit">
+    <input class="btn btn-secondary sss" type="submit" name="submit" value="Submit">
 
 
 </form>
@@ -132,6 +180,10 @@ if(isset($_POST["submit"])) {
     Select image to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
+</form>
+<form action="index.php" method="post">
+    <span ><?php echo $name;?></span>
+
 </form>
 
 </body>
